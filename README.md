@@ -10,7 +10,7 @@ Built natively on Linux with the [AMUMSS Linux port](https://github.com/SavageCo
 
 Install and the Minotaur's grids grow. Technology goes from 10x3 with
 two missing cells to a full 10x5; cargo's ten blank cells become usable
-slots. No installer choice: one patch, no FOMOD.
+slots.
 
 ## Compatibility
 
@@ -65,8 +65,7 @@ somewhere else, and verify fails rather than shipping it.
 `make release` creates `dist/Bigger Minotaur Inventory.zip`, a plain zip of
 the mod folder at the root, which is the zip to import into
 [Amethyst](https://github.com/ChrisDKN/Amethyst-Mod-Manager)/[Vortex](https://github.com/Nexus-Mods/Vortex)
-or upload to Nexus. Single configuration, so no FOMOD installer: there is
-nothing to pick.
+or upload to Nexus.
 
 ## Game updates / versioning
 
