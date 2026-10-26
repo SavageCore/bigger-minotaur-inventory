@@ -29,7 +29,7 @@ AMUMSS_LINUX ?= $(HOME)/Git/AMUMSS/linux
 # The mod version, published as the version of the Nexus release. 0.0.0:
 # nothing has shipped yet. See AGENTS.md - the bump commit carries only
 # version lines.
-VERSION      := 0.0.0
+VERSION      := 0.1.0
 
 MOD_SET      := Bigger Minotaur Inventory
 
