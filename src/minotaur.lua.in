@@ -1,0 +1,74 @@
+-- Bigger Minotaur Inventory
+-- RENDERED FILE - do not edit; edit src/minotaur.lua.in (this file is copied
+-- verbatim by the Makefile, there are no placeholders to render).
+--
+-- Fills the Minotaur exomech's inventory grids and adds two technology rows:
+-- the cargo grid's blank locked cells become usable slots, and technology
+-- grows from 10x3 to a full 10x5.
+--
+-- Requested by TrueWhiteKnight: the stock Minotaur cannot hold all of the
+-- murder mech upgrades at once.
+
+local ModName            = "Bigger Minotaur Inventory"
+local ModAuthor          = "SavageCore"
+local GameVersion        = "v7.06" -- Cosmos
+local FileSource         = "METADATA/REALITY/TABLES/INVENTORYTABLE.MBIN"
+
+-- The Minotaur reads its layout from the Vehicle* generation entries. A
+-- stock Minotaur matches VehicleMedium exactly: 40 general slots in a 10x5
+-- cargo grid with 10 blanks, 28 tech slots in a 10x3 grid with 2 missing
+-- (bottom-row positions 1 and 4). All three Vehicle sizes are patched with
+-- the same rule so every Minotaur class benefits: technology fills to full
+-- then gains two rows (10x5, 50 slots), cargo fills its grid (10x5,
+-- 50 slots) with no new rows.
+--
+-- Deliberately left alone:
+--   * Bounds / TechBounds widths (already 10) and the Small/Large height
+--     tiers - only the Standard tier the inventory page shows is raised.
+--   * MaxNumSpecialTechSlots and SpecialTechSlotMaxIndex - the hardwired
+--     slots keep their positions.
+--   * MinSlots/MaxSlots for VehicleLarge are already 50; the entries are
+--     listed anyway so every size carries the same declared layout.
+local VehicleSizes = {
+    "VehicleSmall",
+    "VehicleMedium",
+    "VehicleLarge",
+}
+
+-- One change block per Vehicle entry. SPECIAL_KEY_WORDS navigates to the
+-- entry node itself, so VALUE_CHANGE_TABLE applies to the leaves beneath
+-- it. MaxHeightStandard appears twice per entry (Bounds and TechBounds):
+-- Bounds is already 5 so that write is a no-op, TechBounds moves 3 to 5.
+local MxmlChangeTable = {}
+for _, entry in ipairs(VehicleSizes) do
+    MxmlChangeTable[#MxmlChangeTable + 1] = {
+        ["SPECIAL_KEY_WORDS"]  = {entry, "GcInventoryLayoutGenerationDataEntry"},
+        ["REPLACE_TYPE"]       = "ALL",
+        ["VALUE_CHANGE_TABLE"] = {
+            {"MinSlots", "50"},
+            {"MaxSlots", "50"},
+            {"MinTechSlots", "50"},
+            {"MaxTechSlots", "50"},
+            {"MaxHeightStandard", "5"}
+        },
+    }
+end
+
+NMS_MOD_DEFINITION_CONTAINER = {
+    ["MOD_FILENAME"]    = ModName..".pak",
+    ["MOD_DESCRIPTION"] = "Minotaur cargo fills its grid, technology grows to 10x5",
+    ["MOD_AUTHOR"]      = ModAuthor,
+    ["NMS_VERSION"]     = GameVersion,
+    ["MODIFICATIONS"]   =
+    {
+        {
+            ["MBIN_CHANGE_TABLE"]   =
+            {
+                {
+                    ["MBIN_FILE_SOURCE"]    = {FileSource},
+                    ["MXML_CHANGE_TABLE"]   = MxmlChangeTable,
+                },
+            }
+        },
+    }
+}
