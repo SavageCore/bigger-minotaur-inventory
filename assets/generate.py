@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Regenerate Nexus page images from the source screenshot.
+"""Regenerate the Nexus page header from the source screenshot.
 
 Deterministic rebuild:
-  assets/gallery-1920x1080.jpg  (16:9 downscale, gallery slot)
   assets/header-1300x372.jpg    (wide crop + title overlay, banner)
+
+No gallery output: the original.jpg / bigger.jpg comparison pair already
+covers the Nexus image slots.
 
 Usage: python3 assets/generate.py   (or: make assets)
 Requires: Pillow (pip install Pillow). Typeface is vendored (see FONT).
@@ -19,7 +21,6 @@ from PIL import Image, ImageDraw, ImageFont
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(HERE, "src", "bigger.jpg")
-GAL = os.path.join(HERE, "gallery-1920x1080.jpg")
 HDR = os.path.join(HERE, "header-1300x372.jpg")
 
 # In-game heading typeface, vendored (SIL OFL 1.1):
@@ -62,9 +63,6 @@ def main():
 
     img = Image.open(SRC).convert("RGB")
     assert img.size == (2560, 1440), f"unexpected source size {img.size}"
-
-    img.resize((1920, 1080), Image.LANCZOS).save(GAL, quality=92)
-    print(f"wrote {GAL}")
 
     w, h = img.size
     band_h = int(w * 372 / 1300)
