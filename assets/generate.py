@@ -29,19 +29,20 @@ FONT = os.path.join(HERE, "fonts", "GeosansLight-NMS.ttf")
 TITLE = "BIGGER MINOTAUR INVENTORY"
 SUBTITLE = "TECH 10X5  \u2022  CARGO FILLED"
 
-# Vertical offset of the header crop band in source pixels. The 400-1132 band
-# covers the tech grid, the cargo grid and the mech; the title block sits
-# over dark background at top-left.
-HEADER_BAND_Y = 400
+# Vertical offset of the header crop band in source pixels. The 180-912 band
+# keeps the in-game Minotaur label in frame along with the mech head, the
+# tech grid and the top cargo rows; the title block sits over the grids,
+# so it keeps its own scrim for readability.
+HEADER_BAND_Y = 180
 
 # Banner geometry. The Nexus banner slot is 1300x372.
 BAND_W, BAND_H = 1300, 372
 
 # Scrim opacity (0-255 of black). FLOOR darkens the whole banner; TEXT is the
-# extra scrim held across the text block. House defaults; retune against the
-# real screenshot (aim for the title at 15:1 or better).
-SCRIM_FLOOR = 145
-SCRIM_TEXT = 75
+# extra scrim held across the text block. Kept light: the source shot is
+# already dark behind the text, so a heavy floor would only crush the mech.
+SCRIM_FLOOR = 60
+SCRIM_TEXT = 70
 
 # Text placement. TEXT_BOTTOM is the last row covered by the flat text scrim.
 TEXT_X = 48
