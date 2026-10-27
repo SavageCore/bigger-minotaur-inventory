@@ -65,7 +65,7 @@ somewhere else, and verify fails rather than shipping it.
 `make release` creates `dist/Bigger Minotaur Inventory.zip`, a plain zip of
 the mod folder at the root, which is the zip to import into
 [Amethyst](https://github.com/ChrisDKN/Amethyst-Mod-Manager)/[Vortex](https://github.com/Nexus-Mods/Vortex)
-or upload to Nexus.
+or upload to Nexus. For a manual install, drop the mod folder into `GAMEDATA/MODS`.
 
 ## Game updates / versioning
 
